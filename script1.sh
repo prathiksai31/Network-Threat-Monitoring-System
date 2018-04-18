@@ -1,4 +1,5 @@
-#@uthor Sai Prathik
+#@uthor 1: Sai Prathik
+#@uthor 2: Nikhil Pinto
 #Title: Shell script to create custom timeout to have control on the duration of execution of individual linux commands.
 
 #!/bin/bash
