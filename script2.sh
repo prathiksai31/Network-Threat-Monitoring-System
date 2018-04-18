@@ -1,4 +1,5 @@
-#@uthor Sai Prathik
+#@uthor 1:  Sai Prathik
+#@author 2: Nikhil Pinto
 #Title: Shell script to automate wardriving using kismet tool. 
 
 #!/bin/bash 
