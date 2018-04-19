@@ -7,6 +7,8 @@
 
 #!/bin/bash
 
+
+#A custom timeout function created to kill a process after a specific amount of time. This is helpful since a there are a #lot of processes that run indefinitely and the requirement of the process is only for a short amount of time. Hence in #shell script this is used as an alternative to Ctrl + C.
 custom_timeout() {
   time=$1
 
@@ -19,44 +21,64 @@ custom_timeout() {
   fi
 
 }
+
 echo "Enter the SSID in quotes" 
 read i
+#i --> Wifi Name
 #echo "$i"
 
+#The output file of kismet is always stored in a standard format. Thus to extract only the required information we first #find the SSID of the entered network and then navigate up and down by a fixed distance to get the parameters. As the file #is always stored in a standard form, the distance from the SSID does not change. Thus the below variables store the #location (Line number) of each parameter for later extraction.
 slash="/"
+#location of BSSID, required for aircrack-ng
 loc="/{ print NR-3}"
 addr=$slash$i$loc
+
+#location of Channel, required for aircrack-ng
 loc2="/{ print NR+10}"
 addr2=$slash$i$loc2
 
+#location of Manufacturer, one of the parameters in the score model
 loc3="/{ print NR-7}"
 addr3=$slash$i$loc3
 
+#location of Encryption2, one of the parameters in the score model
 loc4="/{ print NR+8}"
 addr4=$slash$i$loc4
 
+#location of WPA Version, one of the parameters in the score model
 loc5="/{ print NR+7}"
 addr5=$slash$i$loc5
 
+
+#Kill all background processes before starting Kismet
 killall NetworkManager
 killall NetworkManagerDispatcher
 killall wpa_supplicant
 killall avahi-daemon
 
 #echo "test1"
+#Start Kismet and Run it for 30 seconds
 custom_timeout 30 "kismet_server daemonize"
 
+#Sleep for another 10 seconds after aborting Kismet
 sleep 10
 
+#Kismet caputres information of various networks within suitable range. From all the numerous networks we need to read only #the parameters of the required Wifi Network and filter out the rest. Thus we read only the required parameters of the #entered SSID and save each parameter to a text file for further processing.
 while read l
 do
 	echo $l
 done < <(awk "$addr" Kismet-1.nettxt)
+#save the required String at line number = addr to variable 
 temp=( $(awk "$addr" Kismet-1.nettxt) )
-sed -n "$temp"p Kismet-1.nettxt > bssid.txt 
-bssid=( $(sed 's/[^,:]*://p' bssid.txt | head -1) )
+
+#write the String to a .txt file
+sed -n "$temp"p Kismet-1.nettxt > bssid.txt
+
+#get entire string after ':' i.e save only the value
+bssid=( $(sed 's/[^,:]*://p' bssid.txt | head -1) ) 
 echo "BSSID $bssid"
 
+#Repeat process for other parameters
 temp1=( $(awk "$addr2" Kismet-1.nettxt) )
 sed -n "$temp1"p Kismet-1.nettxt > channel.txt 
 channel=( $(sed 's/[^,:]*://p' channel.txt | head -1) )
@@ -69,7 +91,7 @@ echo "Manufacturer $manufact"
 
 temp4=( $(awk "$addr4" Kismet-1.nettxt) )
 sed -n "$temp4"p Kismet-1.nettxt > encryption2.txt 
-ep2=( $(sed 's/[^,:]*://p' encryption2.txt | head -1) )
+ep2=( $(sed 's/[^,:]*://p' encryption2.txt | head -1) ) 
 echo "Encryption2 $ep2"
 
 temp5=( $(awk "$addr5" Kismet-1.nettxt) )
@@ -78,14 +100,16 @@ open_encryption=( $(sed 's/[^,:]*://p' open.txt | head -1) )
 #echo "WPA Version $open_encryption"
 
 
+#Start airodump-ng which monitors available networks and run for 10 seconds
 custom_timeout 10 "airodump-ng wlan0mon"
 
-
+#Using acquired data from Kismet start airodump-ng for 10 seconds for the required BSSID to capture the WPA Handshake
 custom_timeout 10 "airodump-ng -c $channel -w /root/six --bssid $bssid wlan0mon"
 
-
+#After capturing the handshake, use aircrack to crack the password using different dictionaries and save the result in a #text file. First use a dictionary consisting of only vowels.
 aircrack-ng -w /root/Desktop/mini_project/crunch.txt /root/six-01.cap | tee password.txt
 
+#Check if password is cracked
 cat password.txt | grep -q "KEY"
 
 if [ $? = 0 ]; then
@@ -96,6 +120,8 @@ else
 	echo "Key 1 Not Found"
 fi
 sleep 5
+
+#If not cracked, try another dictonary of numbers 
 aircrack-ng -w /root/Desktop/mini_project/crunch_1to5.txt /root/six-01.cap | tee password2.txt
 cat password2.txt | grep -q "KEY"
 
@@ -107,6 +133,8 @@ else
 	echo "Key 2 Not Found"
 fi
 sleep 5
+
+#If not cracked, try another dictonary of alpha-numeric values.
 aircrack-ng -w /root/Desktop/mini_project/abc123.txt /root/six-01.cap | tee password3.txt
 cat password3.txt | grep -q "KEY"
 
@@ -119,8 +147,9 @@ else
 fi
 
 
+##################################################SCORE MODEL#####################################################
 
-
+#Check the type of encryption employed by the Wifi and give the score accordingly
 Encrypt=0
 weight_encrypt=5
 #Encryption = "$ep1"
@@ -137,7 +166,7 @@ if [ "$ep2" == "WPA+AES-CCM" ]; then
 fi
 echo "Encryptionscoreis$Encrypt"
 
-#KEY
+#Check if the key is cracked and using which dictionary it's cracked and give the score accordingly
 KEY=0
 key_weight=2
 if [ "$keyfoundvar3" == 1 ]; then
@@ -154,6 +183,7 @@ if [ "$keyfoundvar3" == 1 ]; then
 echo "KeyStrengthis$KEY"
 fi
 
+#Check the make of the Wifi Router used
 Manufact=0
 weight_manufact=1
 
@@ -170,21 +200,27 @@ if [ "$manufact" == "Cisco" ]; then
 fi
 echo "Manufacturerscoreis$Manufact"
 
+#Predefined and it checks if the Wifi signal is detected within the organization itself
 Range=10
 echo "Rangescoreis$Range"
 
+#Checks if the Wifi is opearated only during working hours and turned off otherwise.
 Timing=15
 echo "Timingscoreis$Timing"
 
+#Checks how frequently the Wifi password is changed
 Frequency=10
 echo "Frequencyscoreis$Frequency"
 
 #SNR=0
 #echo "SNRscoreis$SNR"
 
+#Checks the security encryption of a website
 SSL=10
 echo "SSLscoreis$SSL"
 
+
+#Calualtes the total score and classifies it into 3 categories accordingly
 total_score=$( expr $Encrypt + $KEY + $Manufact + $Range + $Timing + $Frequency + $SSL )
 if (( $total_score >= 85 )); then
 	security="Secure"
@@ -194,9 +230,11 @@ if (( $total_score >= 85 )); then
 	security="Not Secure"
 fi
 
+#Writes the data including score and other parameters to a textfile which is then used to upload to the server.
 echo $total_score.$Encrypt.$KEY.$Manufact.$Range.$Timing.$Frequency.$SSL.$i.$security. >> /var/www/html/result.txt
 echo $total_score.$Encrypt.$KEY.$Manufact.$Range.$Timing.$Frequency.$SSL.$i.$security. 
 #$total_score.$Encrypt.$KEY.$Manufact.$Range.$Timing.$Frequency.$SSL.$i >> /var/www/html/result.txt
 sleep 5
 
+#restart the background processes that were killed at the beginning. Connect to the Wifi network again.
 service network-manager restart
