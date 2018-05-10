@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">WiFi Auditor</string>
+    <string name="Secure">Secure</string>
+    <string name="Not_Secure">Not Secure</string>
+    <string name="Moderately_Secure">Moderately Secure</string>
+</resources>
