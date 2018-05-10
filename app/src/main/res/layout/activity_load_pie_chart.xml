@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoadPieChart">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16sp"
+        android:paddingLeft="16sp"
+        android:paddingRight="16sp"
+        android:paddingTop="16sp">
+
+        <TextView
+            android:id="@+id/display_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="SCORE"
+            android:textColor="#fff"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/security_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/display_score"
+            android:gravity="center"
+            android:text="Secure"
+            android:layout_marginTop="10sp"
+            android:textSize="20sp"
+            android:textStyle="italic"/>
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pie_chart"
+            android:layout_width="match_parent"
+            android:layout_height="500sp"
+            android:layout_below="@+id/security_text" />
+
+        <ProgressBar
+            android:id="@+id/encryption_score"
+            android:layout_below="@+id/pie_chart"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="260sp"
+            android:layout_height="13sp"
+            android:progressDrawable="@drawable/customprogressbar"
+            android:layout_marginTop="26sp"
+            android:max="20"
+            android:progress="15" />
+
+        <TextView
+            android:id="@+id/encryption_score_value"
+            android:layout_below="@+id/pie_chart"
+            android:layout_toEndOf="@+id/encryption_score"
+            android:layout_width="124dp"
+            android:layout_height="23sp"
+            android:gravity="center"
+            android:layout_marginTop="17sp"
+            android:text="4.0 / 4"
+            android:textColor="#fff"
+            android:textSize="21sp" />
+
+        <TextView
+            android:id="@+id/encryption_score_text"
+            android:layout_alignStart="@+id/display_score"
+            android:layout_below="@+id/encryption_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3sp"
+            android:textSize="15sp"
+            android:textColor="#fff"
+            android:text="Encryption" />
+
+        <ProgressBar
+            android:id="@+id/keystrength_score"
+            android:layout_below="@+id/encryption_score_text"
+            android:progressDrawable="@drawable/keystrength_progressbar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="260sp"
+            android:layout_height="13sp"
+            android:layout_marginTop="26sp"
+            android:max="30"
+            android:progress="16" />
+
+        <TextView
+            android:id="@+id/keystrength_score_value"
+            android:layout_below="@+id/encryption_score_text"
+            android:layout_toEndOf="@+id/keystrength_score"
+            android:layout_width="124dp"
+            android:layout_height="23sp"
+            android:gravity="center"
+            android:layout_marginTop="17sp"
+            android:text="2.5 / 4"
+            android:textColor="#fff"
+            android:textSize="21sp" />
+
+        <TextView
+            android:id="@+id/keystrength_score_text"
+            android:layout_alignStart="@+id/display_score"
+            android:layout_below="@+id/keystrength_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3sp"
+            android:textSize="15sp"
+            android:textColor="#fff"
+            android:text="Key Strength" />
+
+
+        <ProgressBar
+            android:id="@+id/manuf_score"
+            android:layout_below="@+id/keystrength_score_text"
+            android:progressDrawable="@drawable/manuf_progressbar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="260sp"
+            android:layout_height="13sp"
+            android:layout_marginTop="26sp"
+            android:max="5"
+            android:progress="2" />
+
+        <TextView
+            android:id="@+id/manuf_score_value"
+            android:layout_below="@+id/keystrength_score_text"
+            android:layout_toEndOf="@+id/manuf_score"
+            android:layout_width="124dp"
+            android:layout_height="23sp"
+            android:gravity="center"
+            android:layout_marginTop="17sp"
+            android:text="0.8 / 1"
+            android:textColor="#fff"
+            android:textSize="21sp" />
+
+        <TextView
+            android:id="@+id/manuf_score_text"
+            android:layout_alignStart="@+id/display_score"
+            android:layout_below="@+id/manuf_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3sp"
+            android:textSize="15sp"
+            android:textColor="#fff"
+            android:text="Manufacturer" />
+
+
+        <ProgressBar
+            android:id="@+id/range_score"
+            android:layout_below="@+id/manuf_score_text"
+            android:progressDrawable="@drawable/range_progressbar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="260sp"
+            android:layout_height="13sp"
+            android:layout_marginTop="26sp"
+            android:max="10"
+            android:progress="7" />
+
+        <TextView
+            android:id="@+id/range_score_value"
+            android:layout_below="@+id/manuf_score_text"
+            android:layout_toEndOf="@+id/range_score"
+            android:layout_width="124dp"
+            android:layout_height="23sp"
+            android:gravity="center"
+            android:layout_marginTop="17sp"
+            android:text="3.5 / 4"
+            android:textColor="#fff"
+            android:textSize="21sp" />
+
+        <TextView
+            android:id="@+id/range_score_text"
+            android:layout_alignStart="@+id/display_score"
+            android:layout_below="@+id/range_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3sp"
+            android:textSize="15sp"
+            android:textColor="#fff"
+            android:text="Range" />
+
+        <ProgressBar
+            android:id="@+id/timing_score"
+            android:layout_below="@+id/range_score_text"
+            android:progressDrawable="@drawable/timing_progressbar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="260sp"
+            android:layout_height="13sp"
+            android:layout_marginTop="26sp"
+            android:max="15"
+            android:progress="7" />
+
+        <TextView
+            android:id="@+id/timing_score_value"
+            android:layout_below="@+id/range_score_text"
+            android:layout_toEndOf="@+id/timing_score"
+            android:layout_width="124dp"
+            android:layout_height="23sp"
+            android:gravity="center"
+            android:layout_marginTop="17sp"
+            android:text="0.8 / 1"
+            android:textColor="#fff"
+            android:textSize="21sp" />
+
+        <TextView
+            android:id="@+id/timing_score_text"
+            android:layout_alignStart="@+id/display_score"
+            android:layout_below="@+id/timing_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3sp"
+            android:textSize="15sp"
+            android:textColor="#fff"
+            android:text="Timing" />
+
+
+        <ProgressBar
+            android:id="@+id/freq_score"
+            android:layout_below="@+id/timing_score_text"
+            android:progressDrawable="@drawable/freq_progressbar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="260sp"
+            android:layout_height="13sp"
+            android:layout_marginTop="26sp"
+            android:max="10"
+            android:progress="3" />
+
+        <TextView
+            android:id="@+id/freq_score_value"
+            android:layout_below="@+id/timing_score_text"
+            android:layout_toEndOf="@+id/freq_score"
+            android:layout_width="124dp"
+            android:layout_height="23sp"
+            android:gravity="center"
+            android:layout_marginTop="17sp"
+            android:text="50 / 50"
+            android:textColor="#fff"
+            android:textSize="21sp" />
+
+        <TextView
+            android:id="@+id/freq_score_text"
+            android:layout_alignStart="@+id/display_score"
+            android:layout_below="@+id/freq_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3sp"
+            android:textSize="15sp"
+            android:textColor="#fff"
+            android:text="Frequency" />
+
+
+        <!--<ProgressBar-->
+            <!--android:id="@+id/snr_score"-->
+            <!--android:layout_below="@+id/freq_score_text"-->
+            <!--android:progressDrawable="@drawable/snr_progressbar"-->
+            <!--style="@android:style/Widget.ProgressBar.Horizontal"-->
+            <!--android:layout_width="260sp"-->
+            <!--android:layout_height="13sp"-->
+            <!--android:layout_marginTop="26sp"-->
+            <!--android:max="3"-->
+            <!--android:progress="3" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/snr_score_value"-->
+            <!--android:layout_below="@+id/freq_score_text"-->
+            <!--android:layout_toEndOf="@+id/snr_score"-->
+            <!--android:layout_width="124dp"-->
+            <!--android:layout_height="23sp"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_marginTop="17sp"-->
+            <!--android:text="1.5 / 3"-->
+            <!--android:textColor="#000000"-->
+            <!--android:textSize="21sp" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/snr_score_text"-->
+            <!--android:layout_alignStart="@+id/display_score"-->
+            <!--android:layout_below="@+id/snr_score"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="3sp"-->
+            <!--android:textSize="15sp"-->
+            <!--android:textColor="#000000"-->
+            <!--android:text="SNR" />-->
+
+
+        <ProgressBar
+            android:id="@+id/ssl_score"
+            android:layout_below="@+id/freq_score_text"
+            android:progressDrawable="@drawable/ssl_progressbar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="260sp"
+            android:layout_height="13sp"
+            android:layout_marginTop="26sp"
+            android:max="10"
+            android:progress="7" />
+
+        <TextView
+            android:id="@+id/ssl_score_value"
+            android:layout_below="@+id/freq_score_text"
+            android:layout_toEndOf="@+id/ssl_score"
+            android:layout_width="124dp"
+            android:layout_height="23sp"
+            android:gravity="center"
+            android:layout_marginTop="17sp"
+            android:text="5.5 / 7"
+            android:textColor="#fff"
+            android:textSize="21sp" />
+
+        <TextView
+            android:id="@+id/ssl_score_text"
+            android:layout_alignStart="@+id/display_score"
+            android:layout_below="@+id/ssl_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3sp"
+            android:textSize="15sp"
+            android:textColor="#fff"
+            android:text="SSL" />
+
+    </RelativeLayout>
+</ScrollView>

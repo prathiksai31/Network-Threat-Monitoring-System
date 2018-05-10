@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Wifi Auditor</string>
+    <string name="text">Network 1: BSSID 0A:28:19:C9:8C:95
+        Manuf      : Unknown
+        First      : Thu Mar 29 11:12:02 2018
+        Last       : Thu Mar 29 11:16:09 2018
+        Type       : infrastructure
+        BSSID      : 0A:28:19:C9:8C:95
+        SSID 1
+        Type       : Beacon
+        SSID       : \"LAPTOP-4049LB9R 0879\"
+        First      : Thu Mar 29 11:12:04 2018
+        Last       : Thu Mar 29 11:16:09 2018
+        Max Rate   : 72.2
+        Beacon     : 10
+        Packets    : 873
+        WPS        : Configured
+        WPS Manuf  : Microsoft
+        Dev Name   : LAPTOP-4049LB9R
+        Model Name : Windows
+        Model Num  : 10.0.16299
+        Encryption : WPA+PSK
+        Encryption : WPA+AES-CCM
+        WPA Version: WPA2
+        Channel    : 11
+        Frequency  : 2462 - 1516 packets, 100.00%
+        Max Seen   : 0  LLC
+        : 873  Data       : 643  Crypt
+        : 587  Fragments  : 0
+        Retries    : 0
+        Total      : 1516
+        Datasize   : 205162
+        Last BSSTS : Mar 29 08:02:01
+        Seen By : wlan0 (wlan0mon) 00be09ce-3342-11e8-83e5-0f04751ce201 1516 packets
+        Thu Mar 29 11:16:09 2018</string>
+    <string name="chart_name">Score Distribution</string>
+</resources>
