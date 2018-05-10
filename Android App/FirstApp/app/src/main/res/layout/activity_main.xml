@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="59dp"
+            android:gravity="center_horizontal"
+            android:text="NETWORK THREAT MONITORING SYSTEM"
+            android:textSize="35sp"
+            android:textColor="#3498db"/>
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="165sp"
+            android:layout_height="95sp"
+            android:layout_below="@+id/tv_data"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="56dp"
+            android:text="START A NEW WIFI AUDIT"
+            android:textSize="15sp"
+            android:onClick="startButton"/>
+
+        <Button
+            android:id="@+id/button_load"
+            android:layout_width="165sp"
+            android:layout_height="95sp"
+            android:layout_alignStart="@+id/button_save"
+            android:layout_below="@+id/button_save"
+            android:layout_marginTop="50sp"
+            android:textSize="15sp"
+            android:text="LOAD PREVIOUS AUDITS"
+            android:onClick="loadButton"/>
+    </RelativeLayout>
+</ScrollView>

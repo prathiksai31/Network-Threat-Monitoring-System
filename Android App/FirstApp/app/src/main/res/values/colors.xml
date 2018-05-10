@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="green">#558b2f</color>
+    <color name="material_dark">#303030</color>
+    <color name="secure_color">#ff64DD17</color>
+    <color name="notSecure_color">#ffF44336</color>
+    <color name="modSecure_color">#ffff8000</color>
+    <color name="icon_background">#6E97AD</color>
+
+
+
+
+</resources>
